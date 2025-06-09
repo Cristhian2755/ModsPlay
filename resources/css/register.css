@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+/* Fondo animado con imagen */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.animated-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7) blur(2px); /* Menos oscuro */
+}
+
+.animated-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+    z-index: 1;
+}
+
+/* Contenedor principal centrado */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Caja del formulario */
+.form-box {
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Título */
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Estilo de grupos del formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  font-size: 16px;
+  margin-bottom: 6px;
+  border-bottom: 2px solid white;
+  width: fit-content;
+  color: white;
+}
+
+.form-group input {
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  background-color: white;
+}
+
+/* Enlace a login */
+.login-link {
+  color: #ccc;
+  text-align: center;
+  display: block;
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Botón de registro */
+button {
+  padding: 12px 30px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #666;
+}

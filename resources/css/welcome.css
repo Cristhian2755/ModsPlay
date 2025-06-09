@@ -1,0 +1,243 @@
+/* === GENERAL === */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Figtree', sans-serif;
+    background-color: #0a0f1a;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* === ANIMATED BACKGROUND === */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-gif {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    filter: blur(1px);
+}
+
+/* === WRAPPER === */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* === LOGIN AREA === */
+.login-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.login-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* === LOGO === */
+.logo-image {
+    height: 200px;
+    filter: drop-shadow(0 0 10px #00ffffaa);
+}
+
+/* === WELCOME TEXT === */
+.welcome-box {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0rem 15rem;
+    border-radius: 8px;
+    border: 1px solid white;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+/* === FORM === */
+.login-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.login-form label {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: #99ccff;
+    display: block;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    font-size: 1rem;
+    box-shadow: inset 0 0 6px #00ffff33;
+    outline: none;
+}
+
+.login-form input:focus {
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* === BUTTONS === */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    flex: 1;
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-login {
+    background: linear-gradient(to right, #00ffff, #0066ff);
+    color: #000;
+    box-shadow: 0 0 10px #00ffff88;
+}
+
+.btn-login:hover {
+    box-shadow: 0 0 15px #00ffff;
+}
+
+.btn-signin {
+    background: linear-gradient(to right, #ff00ff, #6600ff);
+    color: #fff;
+    box-shadow: 0 0 10px #ff00ff88;
+}
+
+.btn-signin:hover {
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+/* === FOOTER === */
+.site-footer {
+    background-color: #020610;
+    padding: 2rem 1.5rem;
+    color: #ccc;
+    font-size: 0.9rem;
+    box-shadow: 0 -5px 15px rgba(0, 255, 255, 0.05);
+}
+
+.footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.footer-column h4 {
+    color: #00ffff;
+    margin-bottom: 1rem;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-column ul li a {
+    color: #99ccff;
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+.social-icons-container {
+    display: flex;
+    gap: 1rem;
+    flex-direction:column;
+}
+
+.social-icons-container img {
+    height: 24px;
+    width: 24px;
+    filter: drop-shadow(0 0 4px #00ffff);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .welcome-box {
+        padding: 0rem 5rem;
+    }
+    
+    .footer-columns {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-box {
+        padding: 0rem 2rem;
+    }
+    
+    .logo-image {
+        height: 150px;
+    }
+}

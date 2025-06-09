@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'welcome.css';
+
+[x-cloak] {
+    display: none;
+}
