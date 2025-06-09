@@ -3,28 +3,38 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\ResetPasswordController;
-
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
-// Rutas de autenticación
+// Autenticación
 Route::middleware('guest')->group(function () {
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'login']);
+    // Login
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
     
-    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('register', [RegisterController::class, 'register']);
+    Route::post('/login', [LoginController::class, 'login']);
     
+    // Registro
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register');
     
+    Route::post('/register', [RegisterController::class, 'register']);
+    
+    // Recuperación de contraseña (opcional)
+    Route::get('/forgot-password', function () {
+        return view('auth.forgot-password');
+    })->name('password.request');
 });
 
-// Rutas protegidas (requieren autenticación)
+// Rutas protegidas
 Route::middleware('auth')->group(function () {
-    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

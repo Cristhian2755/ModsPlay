@@ -23,42 +23,19 @@
     </div>
 
     <div class="wrapper">
-        <main class="login-main-content">
-            <div class="login-content-wrapper">
-                <img src="{{ asset('img/artwork 1.png') }}" alt="Logo" class="logo-image"><br>
-
+        <main class="main-content">
+            <div class="content-wrapper">
+                <img src="{{ asset('img/artwork 1.png') }}" alt="Logo" class="logo-image">
+                
                 <div class="welcome-box">
-                    <h1 class="welcome-text">WELCOME</h1>
+                    <h1 class="welcome-text">WELCOME TO MODSPLAY</h1>
                 </div>
 
-
-                <form method="POST" action="{{ route('login') }}" class="login-form">
-                    @csrf
-
-                    <div class="form-group">
-                        <label for="email">Nombre de Usuario</label>
-                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
-                        @error('email')
-                            <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input id="password" type="password" name="password" required autocomplete="current-password">
-                        @error('password')
-                            <span class="error-message">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="buttons-container">
-                        <button type="submit" class="btn btn-login">Login</button>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-signin">Sign In</a>
-                        @endif
-                    </div>
-                </form>
-
+                <div class="buttons-container">
+                    <a href="{{ route('login') }}" class="btn btn-login">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-signin">Register</a>
+                </div>
+            </div>
         </main>
 
         <footer class="site-footer">

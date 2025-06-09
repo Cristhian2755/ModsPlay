@@ -31,7 +31,7 @@
             </div>
 
             <!-- FORMULARIO -->
-            <form method="POST" action="{{ route('login') }}" class="login-form">
+            <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <div class="welcome-box">

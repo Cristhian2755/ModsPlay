@@ -3,34 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('auth.register'); // asegúrate de tener la vista auth/register.blade.php
+        return view('auth.register');
     }
 
     public function register(Request $request)
     {
-        // Validación de datos
+        // Validación mejorada
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|confirmed|min:8',
+            'name' => 'required|string|max:255|regex:/^[\pL\s\-]+$/u', // Solo letras y espacios
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', // Al menos 1 mayúscula, 1 minúscula y 1 número
+        ], [
+            'password.regex' => 'La contraseña debe contener al menos una mayúscula, una minúscula y un número.'
         ]);
 
-        // Crear el usuario
-        $user = \App\Models\User::create([
+        // Creación del usuario con Hash
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
+            'password' => Hash::make($validated['password']),
         ]);
 
-        // Loguear al usuario
-        auth()->login($user);
+        // Autenticación
+        Auth::login($user);
 
-        // Redirigir
-        return redirect()->route('home'); // o a donde quieras redirigir después del registro
+        // Redirección con mensaje flash
+        return redirect()->route('home')->with('success', '¡Registro exitoso! Bienvenido a ModsPlay');
     }
 }
