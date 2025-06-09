@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -9,12 +10,11 @@ use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends Controller
 {
-    public function showResetForm(Request $request, $token)
+    public function showResetForm(Request $request, $token = null)
     {
-        return view('auth.reset-password', [
-            'token' => $token,
-            'email' => $request->email
-        ]);
+        return view('auth.reset-password')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
     }
 
     public function reset(Request $request)
@@ -29,10 +29,9 @@ class ResetPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
-                    'password' => bcrypt($password)
-                ])->setRememberToken(Str::random(60));
-
-                $user->save();
+                    'password' => bcrypt($password),
+                    'remember_token' => Str::random(60),
+                ])->save();
 
                 event(new PasswordReset($user));
             }

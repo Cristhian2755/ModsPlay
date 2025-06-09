@@ -1,45 +1,64 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Verificar Email - ModsPlay</title>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-        </div>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided in your profile settings.') }}
+    <!-- CSS -->
+    @vite(['resources/css/verify-email.css',
+        'resources/css/app.css',
+        'resources/js/app.js'
+    ])
+</head>
+<body>
+    <!-- Fondo animado -->
+    <div class="animated-background">
+        <img src="{{ asset('img/fondo.png') }}" alt="Fondo animado">
+    </div>
+
+    <div class="verify-email-container">
+        <div class="verify-email-card">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="{{ asset('img/artwork 1.png') }}" alt="Logo ModsPlay" class="logo-image">
             </div>
-        @endif
 
-        <div class="mt-4 flex items-center justify-between">
-            <form method="POST" action="{{ route('verification.send') }}">
-                @csrf
+            <!-- Título -->
+            <div class="verify-email-header">
+                <h1>Verifica tu dirección de email</h1>
+            </div>
 
-                <div>
-                    <x-button type="submit">
-                        {{ __('Resend Verification Email') }}
-                    </x-button>
-                </div>
-            </form>
+            <!-- Mensaje -->
+            <div class="verify-email-message">
+                @if (session('status') == 'verification-link-sent')
+                    <div class="alert-success">
+                        Se ha enviado un nuevo enlace de verificación a tu dirección de email.
+                    </div>
+                @endif
 
-            <div>
-                <a
-                    href="{{ route('profile.show') }}"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    {{ __('Edit Profile') }}</a>
+                <p>Antes de continuar, por favor verifica tu email con el enlace que te hemos enviado.</p>
+                <p>Si no recibiste el email, haz clic en el botón para solicitar uno nuevo.</p>
+            </div>
 
-                <form method="POST" action="{{ route('logout') }}" class="inline">
+            <!-- Formulario -->
+            <div class="verify-email-form">
+                <form method="POST" action="{{ route('verification.send') }}">
                     @csrf
+                    <button type="submit" class="btn-resend">Reenviar Email de Verificación</button>
+                </form>
 
-                    <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ms-2">
-                        {{ __('Log Out') }}
-                    </button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn-logout">Cerrar Sesión</button>
                 </form>
             </div>
         </div>
-    </x-authentication-card>
-</x-guest-layout>
+    </div>
+</body>
+</html>
