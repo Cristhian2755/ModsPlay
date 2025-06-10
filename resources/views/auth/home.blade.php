@@ -11,7 +11,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600,700&display=swap" rel="stylesheet" />
 
     <!-- CSS -->
-    @vite(['resources/css/home.css',
+    @vite([
+        'resources/css/home.css',
         'resources/css/app.css',
         'resources/js/app.js'
     ])
@@ -34,7 +35,7 @@
                     </button>
                 </form>
             </div>
-            
+
             <div class="nav-links">
                 <a href="{{ route('browse') }}" class="nav-link">Browse</a>
                 <a href="{{ route('upload') }}" class="nav-link">Upload</a>
@@ -67,13 +68,13 @@
                 <h1>Discover and Share Game Mods</h1>
                 <p>Join our community of modders and gamers to enhance your gaming experience</p>
                 <div class="hero-buttons">
-                    <a href="{{ route('browse') }}" class="btn btn-primary">Browse Mods</a>
-                    <a href="{{ route('upload') }}" class="btn btn-secondary">Upload Your Mod</a>
+                    <a href="{{ route('browse') }}" class="btn btn-primary">Explore Content</a>
+                    <a href="{{ route('upload') }}" class="btn btn-secondary">Upload Your Creation</a>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Mods Section -->
+        <!-- Featured Mods -->
         <section class="featured-section">
             <h2 class="section-title">Featured Mods</h2>
             <div class="mods-grid">
@@ -81,18 +82,14 @@
                 <div class="mod-card">
                     <div class="mod-thumbnail">
                         <img src="{{ asset($mod->thumbnail) }}" alt="{{ $mod->title }}">
-                        <div class="mod-views">
-                            <i class="fas fa-eye"></i> {{ $mod->views }}
-                        </div>
+                        <div class="mod-views"><i class="fas fa-eye"></i> {{ $mod->views }}</div>
                     </div>
                     <div class="mod-info">
                         <h3><a href="{{ route('mods.show', $mod->slug) }}">{{ $mod->title }}</a></h3>
-                        <div class="mod-author">
-                            by <a href="{{ route('users.show', $mod->author->username) }}">{{ $mod->author->name }}</a>
-                        </div>
+                        <div class="mod-author">by <a href="{{ route('users.show', $mod->author->username) }}">{{ $mod->author->name }}</a></div>
                         <div class="mod-stats">
-                            <span class="mod-downloads"><i class="fas fa-download"></i> {{ $mod->downloads }}</span>
-                            <span class="mod-likes"><i class="fas fa-heart"></i> {{ $mod->likes }}</span>
+                            <span><i class="fas fa-download"></i> {{ $mod->downloads }}</span>
+                            <span><i class="fas fa-heart"></i> {{ $mod->likes }}</span>
                         </div>
                     </div>
                 </div>
@@ -100,92 +97,113 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
-        <section class="categories-section">
-            <h2 class="section-title">Popular Categories</h2>
-            <div class="categories-grid">
-                <a href="{{ route('browse.category', 'games') }}" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-gamepad"></i>
+        <!-- Trending Section -->
+        <section class="trending-section">
+            <h2 class="section-title">🔥 Trending Today</h2>
+            <div class="mods-grid">
+                @foreach($trending as $mod)
+                <div class="mod-card">
+                    <div class="mod-thumbnail">
+                        <img src="{{ asset($mod->thumbnail) }}" alt="{{ $mod->title }}">
+                        <div class="mod-views"><i class="fas fa-eye"></i> {{ $mod->views }}</div>
                     </div>
-                    <h3>Games</h3>
-                </a>
-                <a href="{{ route('browse.category', 'characters') }}" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-user-astronaut"></i>
+                    <div class="mod-info">
+                        <h3><a href="{{ route('mods.show', $mod->slug) }}">{{ $mod->title }}</a></h3>
+                        <div class="mod-author">by <a href="{{ route('users.show', $mod->author->username) }}">{{ $mod->author->name }}</a></div>
+                        <div class="mod-stats">
+                            <span><i class="fas fa-download"></i> {{ $mod->downloads }}</span>
+                            <span><i class="fas fa-heart"></i> {{ $mod->likes }}</span>
+                        </div>
                     </div>
-                    <h3>Characters</h3>
-                </a>
-                <a href="{{ route('browse.category', 'skins') }}" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>Skins</h3>
-                </a>
-                <a href="{{ route('browse.category', 'maps') }}" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-map"></i>
-                    </div>
-                    <h3>Maps</h3>
-                </a>
-                <a href="{{ route('browse.category', 'tools') }}" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Tools</h3>
-                </a>
-                <a href="{{ route('browse.category', 'audio') }}" class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <h3>Audio</h3>
-                </a>
+                </div>
+                @endforeach
             </div>
         </section>
 
-        <!-- Recent Activity Section -->
+        <!-- Recommended Section -->
+        <section class="recommended-section">
+            <h2 class="section-title">🌟 Community Picks</h2>
+            <div class="mods-grid">
+                @foreach($recommended as $mod)
+                <div class="mod-card">
+                    <div class="mod-thumbnail">
+                        <img src="{{ asset($mod->thumbnail) }}" alt="{{ $mod->title }}">
+                    </div>
+                    <div class="mod-info">
+                        <h3><a href="{{ route('mods.show', $mod->slug) }}">{{ $mod->title }}</a></h3>
+                        <div class="mod-author">by <a href="{{ route('users.show', $mod->author->username) }}">{{ $mod->author->name }}</a></div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </section>
+
+        <!-- Popular Categories -->
+        <section class="categories-section">
+            <h2 class="section-title">Popular Categories</h2>
+            <div class="categories-grid">
+                @foreach($categories as $category)
+                <a href="{{ route('browse.category', $category->slug) }}" class="category-card">
+                    <div class="category-icon"><i class="fas fa-tag"></i></div>
+                    <h3>{{ $category->name }}</h3>
+                </a>
+                @endforeach
+            </div>
+        </section>
+
+        <!-- Community Activity -->
         <section class="activity-section">
             <div class="activity-container">
                 <div class="recent-activity">
-                    <h2 class="section-title">Recent Activity</h2>
+                    <h2 class="section-title">🧑‍🤝‍🧑 Community Activity</h2>
                     <div class="activity-feed">
-                        @foreach($recentActivity as $activity)
+                        @foreach($recentComments as $comment)
                         <div class="activity-item">
-                            <img src="{{ asset($activity->user->avatar) }}" alt="{{ $activity->user->name }}" class="activity-avatar">
+                            <img src="{{ asset($comment->user->avatar) }}" alt="{{ $comment->user->name }}" class="activity-avatar">
                             <div class="activity-content">
                                 <p>
-                                    <a href="{{ route('users.show', $activity->user->username) }}">{{ $activity->user->name }}</a>
-                                    {{ $activity->description }}
-                                    @if($activity->mod)
-                                        <a href="{{ route('mods.show', $activity->mod->slug) }}">{{ $activity->mod->title }}</a>
-                                    @endif
+                                    <a href="{{ route('users.show', $comment->user->username) }}">{{ $comment->user->name }}</a>
+                                    commented on
+                                    <a href="{{ route('mods.show', $comment->mod->slug) }}">{{ $comment->mod->title }}</a>
                                 </p>
-                                <small class="activity-time">{{ $activity->created_at->diffForHumans() }}</small>
+                                <small class="activity-time">{{ $comment->created_at->diffForHumans() }}</small>
                             </div>
                         </div>
                         @endforeach
                     </div>
                 </div>
-                
+
                 <div class="top-mods">
-                    <h2 class="section-title">Top Mods This Week</h2>
+                    <h2 class="section-title">🏆 Top Mods This Week</h2>
                     <div class="top-mods-list">
                         @foreach($topMods as $index => $mod)
                         <div class="top-mod-item">
                             <span class="mod-rank">{{ $index + 1 }}</span>
                             <div class="mod-details">
                                 <h3><a href="{{ route('mods.show', $mod->slug) }}">{{ $mod->title }}</a></h3>
-                                <div class="mod-author">
-                                    by <a href="{{ route('users.show', $mod->author->username) }}">{{ $mod->author->name }}</a>
-                                </div>
-                                <div class="mod-stats">
-                                    <span class="mod-downloads"><i class="fas fa-download"></i> {{ $mod->downloads }}</span>
-                                </div>
+                                <div class="mod-author">by <a href="{{ route('users.show', $mod->author->username) }}">{{ $mod->author->name }}</a></div>
+                                <div class="mod-stats"><i class="fas fa-download"></i> {{ $mod->downloads }}</div>
                             </div>
                         </div>
                         @endforeach
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- News / Blog -->
+        <section class="news-section">
+            <h2 class="section-title">📰 Latest News</h2>
+            <div class="mods-grid">
+                @foreach($news as $article)
+                <div class="mod-card">
+                    <div class="mod-info">
+                        <h3><a href="{{ route('news.show', $article->slug) }}">{{ $article->title }}</a></h3>
+                        <div class="mod-author">by {{ $article->author->name }}</div>
+                        <p>{{ Str::limit($article->content, 100) }}</p>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </section>
     </div>
@@ -224,11 +242,11 @@
                 <div class="footer-column">
                     <h4>Connect</h4>
                     <div class="social-icons">
-                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                     <div class="newsletter">
                         <h5>Subscribe to our newsletter</h5>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +34,8 @@ Route::middleware('guest')->group(function () {
         return view('auth.forgot-password');
     })->name('password.request');
 });
+
+Route::get('/inicio', [HomeController::class, 'index'])->name('inicio');
 
 // Rutas protegidas
 Route::middleware('auth')->group(function () {
